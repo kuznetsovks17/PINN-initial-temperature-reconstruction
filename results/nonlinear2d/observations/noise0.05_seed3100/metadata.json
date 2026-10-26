@@ -1,0 +1,39 @@
+{
+  "experiment": {
+    "name": "strong_nonlinear2d",
+    "dim": 2,
+    "law": "sigmoid20_2d",
+    "bounds": [
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "Fo": 0.002,
+    "T": 1.0,
+    "boundary_type": "dirichlet0",
+    "dirichlet_value": 0.0,
+    "a_lo": 1.0,
+    "a_hi": 20.0,
+    "beta": 12.0,
+    "theta_mid": 0.5,
+    "initial_profile": "two_interior_hotspots_v1",
+    "initial_normalization": 1.0475286126491916,
+    "source": 0.0
+  },
+  "sigma": 0.009126908312609249,
+  "noise_level": 0.05,
+  "noise_seed": 3100,
+  "reference_sha256": "1f35b02ba95712b910f7c780e99f29231ef92abe1c4055b0bd0288fc7ef06478",
+  "noise_norm": 0.29080119643056584,
+  "observation_sha256": "300ffdbd7afcea515e3bedface28071d5256704a4451fa7e9f8f7fc97add6a88",
+  "reference_n": 97,
+  "reference_dt": 0.005,
+  "sensor_count": 961,
+  "boundary_policy": "exact homogeneous Dirichlet",
+  "truth_in_training": false
+}

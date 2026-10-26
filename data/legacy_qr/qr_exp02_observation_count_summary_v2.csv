@@ -1,0 +1,5 @@
+run_id,gamma,mesh_nx,mesh_ny,dt,nsteps,inverse_seconds,forward_seconds,data_discrepancy_noisy_all,data_discrepancy_noisy_interior,sensor_clean_rel_l2_all,sensor_clean_rel_l2_interior,initial_rel_l2_validation,initial_rel_linf_validation
+observation_sweep__smooth2d__d2__obs5__noise005p0,1e-06,210,210,0.1,1000,44.28,11.137,0.204704,0.200394,0.206261,0.206261,0.365086,0.421271
+observation_sweep__smooth2d__d2__obs9__noise005p0,1e-06,210,210,0.1,1000,43.394,10.972,0.146903,0.143562,0.146402,0.146402,0.341772,0.394409
+observation_sweep__smooth2d__d2__obs17__noise005p0,1e-06,210,210,0.1,1000,43.583,11.002,0.134974,0.133614,0.123848,0.123848,0.33228,0.377875
+noise_and_observation_shared__smooth2d__d2__obs33__noise005p0,1e-06,210,210,0.1,1000,43.16,11.336,0.129545,0.128332,0.11931,0.11931,0.336536,0.383859

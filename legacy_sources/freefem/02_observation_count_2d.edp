@@ -1,0 +1,363 @@
+
+// -----------------------------------------------------------------------------
+// FreeFEM compatibility fix: FE-valued metric helpers are macros, not func arguments.
+// Mixed quasi-reversibility:
+//     w_s + chi*Delta(w) + gamma*Delta(v) = 0,
+//     v = Delta(w),   s=T-t.
+//
+// Weak form:
+//   (w,phi) - dt*chi*(grad w,grad phi)
+//           - dt*gamma*(grad v,grad phi)
+//   + (v,psi) + (grad w,grad psi)
+//   = (w_old,phi).
+//
+// P1/P1 mixed elements. Strong Dirichlet condition on w.
+// -----------------------------------------------------------------------------
+
+string OBSROOT   = "C:/Users/Voland/Downloads/epinn_revision_package/epinn_revision_package/epinn_experiment_outputs_single_run/freefem_terminal_data";
+string INPUTROOT = "C:/Users/Voland/Downloads/epinn_revision_package/epinn_revision_package/epinn_experiment_outputs_single_run/qr_pinn_comparison_input_package";
+string TESTGRID  = INPUTROOT + "/common/test_grid_2d.txt";
+
+int nx = 210;
+int ny = 210;
+mesh Th = square(nx, ny);
+
+fespace Vh(Th, P1);
+fespace Wh(Th, [P1,P1]);
+
+Vh theta0rec, ufwd;
+Wh [w,v], [phi,psi];
+
+real[int] terminalVals;
+int terminalDim = 0;
+int terminalNx = 0;
+int terminalNy = 0;
+int terminalN = 0;
+
+func real terminalAt(real xx, real yy)
+{
+    int ix = int(xx*(terminalNx-1) + 0.5);
+    int iy = int(yy*(terminalNy-1) + 0.5);
+
+    if (ix < 0) ix = 0;
+    if (iy < 0) iy = 0;
+    if (ix > terminalNx-1) ix = terminalNx-1;
+    if (iy > terminalNy-1) iy = terminalNy-1;
+
+    return terminalVals[ix*terminalNy + iy];
+}
+
+
+macro LoadTerminal2D(FILE) {
+    {
+        ifstream ffLoad(FILE);
+        ffLoad >> terminalDim;
+        ffLoad >> terminalNx >> terminalNy;
+        ffLoad >> terminalN;
+
+        if (terminalDim != 2) {
+            cout << "ERROR: expected a 2D terminal field in " << FILE << endl;
+            exit(1);
+        }
+
+        if (terminalNx != nx+1 || terminalNy != ny+1) {
+            cout << "ERROR: terminal field shape = "
+                 << terminalNx << " x " << terminalNy
+                 << ", expected "
+                 << nx+1 << " x " << ny+1 << endl;
+            cout << "Rerun export_epinn_terminal_observations_to_freefem_v3.ipynb." << endl;
+            exit(1);
+        }
+
+        if (terminalN != terminalNx*terminalNy) {
+            cout << "ERROR: inconsistent terminal value count in " << FILE << endl;
+            exit(1);
+        }
+
+        terminalVals.resize(terminalN);
+        for (int ffI=0; ffI<terminalN; ++ffI)
+            ffLoad >> terminalVals[ffI];
+    }
+} //
+
+
+
+macro SaveTest2D(U,OUTFILE) {
+    ifstream gridFile(TESTGRID);
+    int nTest;
+    gridFile >> nTest;
+    ofstream outFile(OUTFILE);
+    outFile << nTest << endl;
+    for (int q = 0; q < nTest; ++q) {
+        real xx, yy;
+        gridFile >> xx >> yy;
+        outFile << xx << " " << yy << " " << U(xx,yy) << endl;
+    }
+} //
+
+
+
+macro InitialErrorsSmooth2D(U,E2,EINF) {
+    {
+        ifstream ffGrid(TESTGRID);
+        int ffN;
+        ffGrid >> ffN;
+
+        real ffNum=0.0, ffDen=0.0;
+        real ffMaxErr=0.0, ffMaxTrue=0.0;
+
+        for (int ffQ=0; ffQ<ffN; ++ffQ) {
+            real ffX, ffY;
+            ffGrid >> ffX >> ffY;
+
+            real ffTrue =
+                  sin(pi*ffX)*sin(pi*ffY)
+                + 0.25*sin(2.0*pi*ffX)*sin(3.0*pi*ffY);
+
+            real ffErr = U(ffX,ffY)-ffTrue;
+
+            ffNum += ffErr*ffErr;
+            ffDen += ffTrue*ffTrue;
+
+            if (abs(ffErr)>ffMaxErr) ffMaxErr=abs(ffErr);
+            if (abs(ffTrue)>ffMaxTrue) ffMaxTrue=abs(ffTrue);
+        }
+
+        E2 = sqrt(ffNum/(ffDen>1e-30 ? ffDen : 1e-30));
+        EINF = ffMaxErr/(ffMaxTrue>1e-30 ? ffMaxTrue : 1e-30);
+    }
+} //
+
+
+
+macro SensorErrors2D(U,NOISYFILE,CLEANFILE,ENA,ENI,ECA,ECI) {
+    {
+        real ffNumNA=0.0, ffDenNA=0.0, ffNumNI=0.0, ffDenNI=0.0;
+        real ffNumCA=0.0, ffDenCA=0.0, ffNumCI=0.0, ffDenCI=0.0;
+
+        {
+            ifstream ffNoisy(NOISYFILE);
+            int ffNObs;
+            ffNoisy >> ffNObs;
+
+            for (int ffI=0; ffI<ffNObs; ++ffI) {
+                real ffX, ffY, ffValue;
+                ffNoisy >> ffX >> ffY >> ffValue;
+
+                real ffD=U(ffX,ffY)-ffValue;
+                ffNumNA += ffD*ffD;
+                ffDenNA += ffValue*ffValue;
+
+                bool ffInterior =
+                    (ffX>1e-12 && ffX<1.0-1e-12 &&
+                     ffY>1e-12 && ffY<1.0-1e-12);
+
+                if (ffInterior) {
+                    ffNumNI += ffD*ffD;
+                    ffDenNI += ffValue*ffValue;
+                }
+            }
+        }
+
+        {
+            ifstream ffClean(CLEANFILE);
+            int ffNObs;
+            ffClean >> ffNObs;
+
+            for (int ffI=0; ffI<ffNObs; ++ffI) {
+                real ffX, ffY, ffValue;
+                ffClean >> ffX >> ffY >> ffValue;
+
+                real ffD=U(ffX,ffY)-ffValue;
+                ffNumCA += ffD*ffD;
+                ffDenCA += ffValue*ffValue;
+
+                bool ffInterior =
+                    (ffX>1e-12 && ffX<1.0-1e-12 &&
+                     ffY>1e-12 && ffY<1.0-1e-12);
+
+                if (ffInterior) {
+                    ffNumCI += ffD*ffD;
+                    ffDenCI += ffValue*ffValue;
+                }
+            }
+        }
+
+        ENA = sqrt(ffNumNA/(ffDenNA>1e-30 ? ffDenNA : 1e-30));
+        ENI = sqrt(ffNumNI/(ffDenNI>1e-30 ? ffDenNI : 1e-30));
+        ECA = sqrt(ffNumCA/(ffDenCA>1e-30 ? ffDenCA : 1e-30));
+        ECI = sqrt(ffNumCI/(ffDenCI>1e-30 ? ffDenCI : 1e-30));
+    }
+} //
+
+
+// =============================================================================
+// EXPERIMENT 2: number of terminal observations, 5% noise.
+//
+// Same 210x210 QR mesh for ALL sensor counts.
+// This isolates observation count from FEM resolution.
+//
+// T=100, chi=2e-4, dt=0.1 -> 1000 steps.
+//
+// gammaProduction must be replaced by the value selected from Experiment 1
+// at 5% noise. 1e-6 is only a placeholder.
+// =============================================================================
+
+real chi = 2.0e-4;
+real T = 100.0;
+real dt = 0.1;
+int nSteps = 1000;
+
+real gammaProduction = 1.0e-6; // <-- EDIT AFTER EXPERIMENT 1.
+
+string[int] runFolders(4);
+runFolders[0] = "observation_sweep__smooth2d__d2__obs5__noise005p0";
+runFolders[1] = "observation_sweep__smooth2d__d2__obs9__noise005p0";
+runFolders[2] = "observation_sweep__smooth2d__d2__obs17__noise005p0";
+runFolders[3] = "noise_and_observation_shared__smooth2d__d2__obs33__noise005p0";
+
+varf vQR([wa,va],[phia,psia])
+    = int2d(Th)(
+          wa*phia
+        - dt*chi*(dx(wa)*dx(phia)+dy(wa)*dy(phia))
+        - dt*gammaProduction*(dx(va)*dx(phia)+dy(va)*dy(phia))
+        + va*psia
+        + dx(wa)*dx(psia)+dy(wa)*dy(psia)
+      )
+    + on(1,2,3,4,wa=0.0);
+
+varf vMassQR([wa,va],[phia,psia])
+    = int2d(Th)(wa*phia);
+
+matrix AQR = vQR(Wh,Wh,solver=sparsesolver);
+matrix BQR = vMassQR(Wh,Wh);
+set(AQR,solver=sparsesolver);
+
+varf vForward(u,test)
+    = int2d(Th)(
+          u*test
+        + dt*chi*(dx(u)*dx(test)+dy(u)*dy(test))
+      )
+    + on(1,2,3,4,u=0.0);
+
+varf vMassForward(u,test)
+    = int2d(Th)(u*test);
+
+matrix AForward = vForward(Vh,Vh,solver=sparsesolver);
+matrix MForward = vMassForward(Vh,Vh);
+set(AForward,solver=sparsesolver);
+
+string summaryFileName = OBSROOT + "/qr_exp02_observation_count_summary_v2.csv";
+ofstream summary(summaryFileName);
+summary << "run_id,gamma,mesh_nx,mesh_ny,dt,nsteps,"
+        << "inverse_seconds,forward_seconds,"
+        << "data_discrepancy_noisy_all,data_discrepancy_noisy_interior,"
+        << "sensor_clean_rel_l2_all,sensor_clean_rel_l2_interior,"
+        << "initial_rel_l2_validation,initial_rel_linf_validation" << endl;
+
+for (int irun=0; irun<4; ++irun) {
+    string runID = runFolders[irun];
+    string runDir = OBSROOT+"/"+runID;
+
+    cout << "Exp2: " << runID
+         << ", gamma=" << gammaProduction << endl;
+
+    LoadTerminal2D(runDir+"/terminal_qr_mesh_values.txt");
+
+    [w,v] = [terminalAt(x,y),0.0];
+
+    real[int] sol(Wh.ndof);
+    sol = w[];
+
+    real t0=clock();
+
+    for (int step=1; step<=nSteps; ++step) {
+        real[int] rhs=BQR*sol;
+        sol=AQR^-1*rhs;
+    }
+
+    real inverseSeconds=clock()-t0;
+
+    w[]=sol;
+    theta0rec=w;
+
+    SaveTest2D(
+        theta0rec,
+        runDir+"/qr_selected_gamma_theta0_test.txt"
+    );
+
+    real initErrL2=0.0, initErrLinf=0.0;
+        InitialErrorsSmooth2D(theta0rec,initErrL2,initErrLinf);
+
+    real[int] fsol(Vh.ndof);
+    fsol=theta0rec[];
+
+    real tf=clock();
+
+    for (int step=1; step<=nSteps; ++step) {
+        real[int] rhsF=MForward*fsol;
+        fsol=AForward^-1*rhsF;
+
+        if (step==nSteps/4 ||
+            step==nSteps/2 ||
+            step==3*nSteps/4 ||
+            step==nSteps) {
+
+            ufwd[]=fsol;
+            string snapFile;
+
+            if (step==nSteps/4)
+                snapFile=runDir+"/qr_selected_gamma_forward_t025_test.txt";
+            if (step==nSteps/2)
+                snapFile=runDir+"/qr_selected_gamma_forward_t050_test.txt";
+            if (step==3*nSteps/4)
+                snapFile=runDir+"/qr_selected_gamma_forward_t075_test.txt";
+            if (step==nSteps)
+                snapFile=runDir+"/qr_selected_gamma_forward_t100_test.txt";
+
+            SaveTest2D(ufwd,snapFile);
+        }
+    }
+
+    real forwardSeconds=clock()-tf;
+    ufwd[]=fsol;
+
+    real sensorNoisyAll=0.0, sensorNoisyInterior=0.0;
+        real sensorCleanAll=0.0, sensorCleanInterior=0.0;
+        SensorErrors2D(
+            ufwd,
+            runDir+"/terminal_observations_noisy.txt",
+            runDir+"/terminal_observations_clean.txt",
+            sensorNoisyAll,
+            sensorNoisyInterior,
+            sensorCleanAll,
+            sensorCleanInterior
+        );
+
+    ofstream runtimeOut(
+        runDir+"/qr_selected_gamma_runtime.txt"
+    );
+    runtimeOut<<"gamma "<<gammaProduction<<endl;
+    runtimeOut<<"mesh_nx "<<nx<<endl;
+    runtimeOut<<"mesh_ny "<<ny<<endl;
+    runtimeOut<<"dt "<<dt<<endl;
+    runtimeOut<<"nsteps "<<nSteps<<endl;
+    runtimeOut<<"inverse_seconds "<<inverseSeconds<<endl;
+    runtimeOut<<"forward_seconds "<<forwardSeconds<<endl;
+    runtimeOut<<"data_discrepancy_noisy_all "<<sensorNoisyAll<<endl;
+    runtimeOut<<"data_discrepancy_noisy_interior "<<sensorNoisyInterior<<endl;
+    runtimeOut<<"sensor_clean_rel_l2_all "<<sensorCleanAll<<endl;
+    runtimeOut<<"sensor_clean_rel_l2_interior "<<sensorCleanInterior<<endl;
+    runtimeOut<<"initial_rel_l2_validation "<<initErrL2<<endl;
+    runtimeOut<<"initial_rel_linf_validation "<<initErrLinf<<endl;
+
+    summary<<runID<<","<<gammaProduction<<","
+           <<nx<<","<<ny<<","<<dt<<","<<nSteps<<","
+           <<inverseSeconds<<","<<forwardSeconds<<","
+           <<sensorNoisyAll<<","<<sensorNoisyInterior<<","
+           <<sensorCleanAll<<","<<sensorCleanInterior<<","
+           <<initErrL2<<","<<initErrLinf<<endl;
+}
+
+cout<<"Experiment 2 completed."<<endl;
+cout<<"Summary: "<<summaryFileName<<endl;

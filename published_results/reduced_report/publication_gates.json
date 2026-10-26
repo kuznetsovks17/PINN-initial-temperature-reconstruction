@@ -1,0 +1,34 @@
+{
+  "reference_and_replay_converged": {
+    "passed": false,
+    "evidence": null
+  },
+  "classical_basis_and_parameter_validation": {
+    "passed": false,
+    "evidence": null
+  },
+  "QR_retained_with_validation_or_explicitly_replaced": {
+    "passed": false,
+    "evidence": null
+  },
+  "paired_controls_all_outcomes_and_failures_reviewed": {
+    "passed": false,
+    "evidence": null
+  },
+  "small_sample_limits_and_claim_scope_disclosed": {
+    "passed": false,
+    "evidence": null
+  },
+  "brass_calibration_and_digitization_disclosed": {
+    "passed": false,
+    "evidence": null
+  },
+  "timing_scopes_and_hardware_disclosed": {
+    "passed": false,
+    "evidence": null
+  },
+  "authors_funding_and_data_release_complete": {
+    "passed": false,
+    "evidence": null
+  }
+}

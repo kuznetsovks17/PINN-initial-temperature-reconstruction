@@ -1,0 +1,21 @@
+{
+  "run_id": "observation_sweep__smooth2d__d2__obs9__noise005p0",
+  "family": "observation_sweep",
+  "problem_name": "smooth2d",
+  "spatial_dim": 2,
+  "noise_level": 0.05,
+  "number_of_terminal_observations": 81,
+  "obs_per_dim": 9,
+  "seed": 2026,
+  "epochs_completed": 30000,
+  "wall_time_seconds": 309.0186415920034,
+  "initial_relative_l2": 0.22375571491967125,
+  "initial_relative_linf": 0.25867467493894397,
+  "terminal_clean_relative_l2": 0.029424795584696517,
+  "terminal_sensor_clean_relative_l2": 0.03197996885886762,
+  "terminal_sensor_noisy_relative_l2": 0.027896776949819728,
+  "pde_test_rms": 0.0003790406044572592,
+  "noise_mse": 0.00022439985838586482,
+  "interface_temperature_rms": NaN,
+  "interface_flux_rms": NaN
+}

@@ -1,0 +1,103 @@
+{
+  "problem": {
+    "name": "nonlinear1d",
+    "dim": 1,
+    "Fo": 0.1,
+    "T": 1.0,
+    "law": "exp_minus_theta_minus_one",
+    "bounds": [
+      [
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "config": {
+    "profile": "production",
+    "method": "fourier_adaptive",
+    "training_seed": 2026,
+    "feature_seed": 72026,
+    "collocation_seed": 82026,
+    "hidden_width": 30,
+    "hidden_depth": 4,
+    "features_per_coordinate": 16,
+    "fourier_scale": 1.0,
+    "dtype": "float32",
+    "epochs": 30000,
+    "N_r": 12000,
+    "N_b": 200,
+    "batch_r": 4096,
+    "batch_b": 200,
+    "learning_rate": 0.0002,
+    "weight_learning_rate": 0.0005,
+    "beta_1": 0.99,
+    "eta_min": 0.01,
+    "eta_max": 100.0,
+    "residual_scale": 1.0,
+    "output_shift": "terminal_mean",
+    "history_every": 100,
+    "validate_every": 500,
+    "checkpoint_every": 1000,
+    "validation_r": 2048,
+    "validation_b": 512,
+    "print_every": 1000,
+    "eval_per_dim": 1001,
+    "prediction_batch": 8192,
+    "deterministic": true,
+    "resume": true
+  },
+  "output_shift": 0.8198501327836526,
+  "identity": {
+    "engine": "inverse-completion-1",
+    "source_sha256": "fc2c4d7f6619eeb56f253cb09a81c98a792f43b3b9d5bf7fe83f8f4d64bf91b0",
+    "problem": {
+      "name": "nonlinear1d",
+      "dim": 1,
+      "Fo": 0.1,
+      "T": 1.0,
+      "law": "exp_minus_theta_minus_one",
+      "bounds": [
+        [
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "config": {
+      "profile": "production",
+      "method": "fourier_adaptive",
+      "training_seed": 2026,
+      "feature_seed": 72026,
+      "collocation_seed": 82026,
+      "hidden_width": 30,
+      "hidden_depth": 4,
+      "features_per_coordinate": 16,
+      "fourier_scale": 1.0,
+      "dtype": "float32",
+      "epochs": 30000,
+      "N_r": 12000,
+      "N_b": 200,
+      "batch_r": 4096,
+      "batch_b": 200,
+      "learning_rate": 0.0002,
+      "weight_learning_rate": 0.0005,
+      "beta_1": 0.99,
+      "eta_min": 0.01,
+      "eta_max": 100.0,
+      "residual_scale": 1.0,
+      "output_shift": "terminal_mean",
+      "history_every": 100,
+      "validate_every": 500,
+      "checkpoint_every": 1000,
+      "validation_r": 2048,
+      "validation_b": 512,
+      "eval_per_dim": 1001,
+      "prediction_batch": 8192,
+      "deterministic": true
+    },
+    "X_obs_sha256": "43832d6c46015189b9024bddd9c995647d46b50bce65ef584ce2252d67a93e5e",
+    "y_obs_sha256": "77237d10a5ed14a51ae95dbd6220b706b9429f7f75e7682900b78fcd4e8e43bb",
+    "X_eval_sha256": "873e049b430a53853d94a8f9e023e996fb47f4231b91429e0436b6d1f6c1a161"
+  },
+  "signature": "df5e07535a54fa54ce77b2c2df7208e8bad41e34f8318a65ff91513cd3d96659"
+}

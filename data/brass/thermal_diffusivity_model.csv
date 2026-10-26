@@ -1,0 +1,2 @@
+A0_m2_s,A1_m2_s_K,alpha_formula,temperature_range_K,note
+3.280000000000e-05,7.880000000000e-09,alpha(T)=A0+A1*T,approximately 530-700 K,Brass relation selected by Zhang et al. from the 3.6-5.4 s inversion interval

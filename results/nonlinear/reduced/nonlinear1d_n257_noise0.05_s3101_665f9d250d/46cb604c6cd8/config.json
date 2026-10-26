@@ -1,0 +1,53 @@
+{
+  "protocol": "reduced-nonlinear-tikhonov-v1",
+  "numerics_sha256": "638ec221aea83d40090d0a3d4bbbd6a70fa0d7eb0cd06af5f4ed6fb63f43047e",
+  "checks_sha256": "0cb760ffd48bf0a72615ddf70a956a0fa72bf61d4ba781818873f38481ca5b54",
+  "dataset_id": "nonlinear1d_n257_noise0.05_s3101_665f9d250d",
+  "observation_sha256": "e9c6d9af49bba830ad787b6c88d208ac73e6cd1cbc0479534e33f1a1feda7454",
+  "reference_sha256": "94042a59b17d24db9c16c4c38f04a0022cad77613ca42a7b9b955c182859a20a",
+  "problem": {
+    "name": "nonlinear1d",
+    "dim": 1,
+    "Fo": 0.1,
+    "T": 1.0,
+    "law": "exp_minus_theta_minus_one",
+    "initial_left": 1.0,
+    "initial_right": 0.8,
+    "jump_x": 0.5,
+    "bounds": [
+      [
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "nx": 201,
+  "n_knots": 17,
+  "alphas": [
+    1e-09,
+    4.641588833612773e-09,
+    2.1544346900318822e-08,
+    1e-07,
+    4.6415888336127725e-07,
+    2.1544346900318822e-06,
+    9.999999999999999e-06,
+    4.641588833612772e-05,
+    0.00021544346900318823,
+    0.001,
+    0.004641588833612773,
+    0.021544346900318822,
+    0.1
+  ],
+  "max_nfev": 200,
+  "rtol": 1e-08,
+  "atol": 1e-10,
+  "max_step": 0.005,
+  "tau": 1.1,
+  "value_bounds": [
+    0.0,
+    2.0
+  ],
+  "floor_rule": "max(reference gate floor, twice coarse-to-reference sensor difference, 1e-10)",
+  "initialization": "same data-derived mean for every alpha; no initial truth",
+  "signature": "46cb604c6cd860178b4baccc0977d42fcb6b8a8ebb7fb49d8ae5dab5bffc57fb"
+}

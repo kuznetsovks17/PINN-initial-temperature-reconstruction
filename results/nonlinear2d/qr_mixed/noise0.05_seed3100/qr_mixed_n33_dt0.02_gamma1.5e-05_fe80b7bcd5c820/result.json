@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "gamma": 1.5e-05,
+  "n": 33,
+  "dt": 0.02,
+  "identifier": "fe80b7bcd5c820",
+  "observation_sha256": "300ffdbd7afcea515e3bedface28071d5256704a4451fa7e9f8f7fc97add6a88",
+  "boundary_closure": "essential w=0, unconstrained q (natural normal derivative closure)",
+  "scheme": "lagged-coefficient backward Euler mixed P1, consistent mass",
+  "terminal_initialization": "direct nodal sensor values; zero Dirichlet boundary",
+  "reason": "field exceeded stated diagnostic cap 20.0 at step 46, amplitude=25.99; do not clip",
+  "exception_type": "QRNumericalFailure"
+}

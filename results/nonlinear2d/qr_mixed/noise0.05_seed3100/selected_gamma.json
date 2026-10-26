@@ -1,0 +1,11 @@
+{
+  "selected_run": "742ec3037c83dd",
+  "selected_gamma": 2.5e-05,
+  "target_noise_norm_nominal": 0.2829341576908867,
+  "observed_discrepancy_absolute": 0.589687198220628,
+  "distance_to_discrepancy_target": 0.3067530405297413,
+  "target_attained_within_20pct": false,
+  "selection_rule": "nearest nominal Morozov-type target using independent forward replay; clean = minimum forward discrepancy; never initial truth",
+  "condition": "noisy5",
+  "observation_tag": "noise0.05_seed3100"
+}

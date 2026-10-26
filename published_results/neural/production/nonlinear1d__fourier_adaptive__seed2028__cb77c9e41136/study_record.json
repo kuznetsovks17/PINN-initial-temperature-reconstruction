@@ -1,0 +1,19 @@
+{
+  "stage": "compact_paired_v1",
+  "case": "nonlinear1d",
+  "exposure": 0.1,
+  "obs_per_dim": 257,
+  "noise_level": 0.0,
+  "noise_seed": 0,
+  "training_seed": 2028,
+  "method": "fourier_adaptive",
+  "repetition": 3,
+  "dataset_id": "nonlinear1d_n257_noise0_s0_1446954dbb",
+  "dataset_folder": "results/observations/nonlinear1d_n257_noise0_s0_1446954dbb",
+  "observation_sha256": "98b284d6372da6c6913fa459bf1e32758c01e12951f29920e8df0db580a8cb74",
+  "run_folder": "results/neural/production/nonlinear1d__fourier_adaptive__seed2028__cb77c9e41136",
+  "profile": "production",
+  "protocol": "matched-interior-v1-unit-time-residual",
+  "endpoint": "final_fixed_budget",
+  "publication_eligible": false
+}

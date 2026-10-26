@@ -1,0 +1,10 @@
+method,training_seed,repetition,scenario,run_folder,status,withheld_metrics_present,replay_metrics_present,refinement_record_present
+plain,2026,1,nominal,results/brass/production/brass__nominal__plain__seed2026__71ebc52d6fef,completed,True,True,True
+plain,2027,2,nominal,results/brass/production/brass__nominal__plain__seed2027__33331114dc58,completed,True,True,True
+plain,2028,3,nominal,results/brass/production/brass__nominal__plain__seed2028__c53dfb245b86,completed,True,True,True
+fourier_fixed,2026,1,nominal,results/brass/production/brass__nominal__fourier_fixed__seed2026__d36fb1b55d6d,completed,True,True,True
+fourier_fixed,2027,2,nominal,results/brass/production/brass__nominal__fourier_fixed__seed2027__a6835f31ef76,completed,True,True,True
+fourier_fixed,2028,3,nominal,results/brass/production/brass__nominal__fourier_fixed__seed2028__b48a1bdc607a,completed,True,True,True
+fourier_adaptive,2026,1,nominal,results/brass/production/brass__nominal__fourier_adaptive__seed2026__23bd7dc896f8,completed,True,True,True
+fourier_adaptive,2027,2,nominal,results/brass/production/brass__nominal__fourier_adaptive__seed2027__6b27d566243f,completed,True,True,True
+fourier_adaptive,2028,3,nominal,results/brass/production/brass__nominal__fourier_adaptive__seed2028__f0c27515caf5,completed,True,True,True

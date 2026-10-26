@@ -1,0 +1,18 @@
+{
+  "stage": "screen",
+  "case": "smooth2d",
+  "exposure": 0.02,
+  "obs_per_dim": 33,
+  "noise_level": 0.05,
+  "noise_seed": 3100,
+  "training_seed": 2026,
+  "method": "fourier_adaptive",
+  "dataset_id": "smooth2d_n33_noise0.05_s3100_fef320eab0",
+  "dataset_folder": "results/observations/smooth2d_n33_noise0.05_s3100_fef320eab0",
+  "observation_sha256": "14b2519f7d352ed46623f7f2cb3f39be81d52bdf50bd15baafd0fdf4dff3b17f",
+  "run_folder": "results/neural/production/smooth2d__fourier_adaptive__seed2026__f1a1fd40aff5",
+  "profile": "production",
+  "protocol": "matched-interior-v1-unit-time-residual",
+  "endpoint": "final_fixed_budget",
+  "publication_eligible": false
+}

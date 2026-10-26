@@ -1,0 +1,4 @@
+replay_nodes,independent_terminal_relative_l2,initial_boundary_linf,status
+33,0.01334723427203418,0.0010855663567781448,legacy_postprocessing_diagnostic
+65,0.013515199848943466,0.0010957017075270414,legacy_postprocessing_diagnostic
+101,0.013534903496143991,0.0010986588895320892,legacy_postprocessing_diagnostic

@@ -1,0 +1,396 @@
+// =============================================================================
+// FreeFEM compatibility fix: FE-valued metric helpers are macros.
+// EXPERIMENT 3: nonlinear 1D discontinuous initial state.
+//
+// QR mesh: 1000 intervals = 1001 nodes = universal 1D comparison grid.
+// T=1, dt=5e-4 -> 2000 steps.
+// gamma = 1e-3, 3e-4, 1e-4.
+//
+// Nonlinear diffusivity:
+//   a(theta)=0.1*exp(-theta-1).
+//
+// Coefficient is lagged by one time step; no Picard loop.
+// The auxiliary variable is scaled by sqrt(gamma) to improve block conditioning.
+// =============================================================================
+
+load "msh3"
+
+string OBSROOT   = "C:/Users/Voland/Downloads/epinn_revision_package/epinn_revision_package/epinn_experiment_outputs_single_run/freefem_terminal_data";
+string INPUTROOT = "C:/Users/Voland/Downloads/epinn_revision_package/epinn_revision_package/epinn_experiment_outputs_single_run/qr_pinn_comparison_input_package";
+string TESTGRID  = INPUTROOT + "/common/test_grid_1d.txt";
+
+int nx=1000;
+meshL Th=segment(nx,[x,0,0]);
+
+fespace Vh(Th,P1);
+fespace Wq(Th,P1);
+fespace Zq(Th,P1);
+
+Vh theta0rec,ufwd,uoldQR,acoefQR,uoldF,unewF,acoefF;
+Wq w,phi;
+Zq q,psi;
+
+real T=1.0;
+real dt=5.0e-4;
+int nSteps=2000;
+
+real[int] gammas(3);
+gammas[0]=1.0e-3;
+gammas[1]=3.0e-4;
+gammas[2]=1.0e-4;
+
+string[int] gammaTags(3);
+gammaTags[0]="1e-3";
+gammaTags[1]="3e-4";
+gammaTags[2]="1e-4";
+
+string[int] runFolders(2);
+runFolders[0]="discontinuous_ic__discontinuous1d__d1__obs257__noise000p0";
+runFolders[1]="discontinuous_ic__discontinuous1d__d1__obs257__noise005p0";
+
+real[int] terminalVals;
+int terminalDim=0,terminalNx=0,terminalN=0;
+
+func real terminalAt(real xx)
+{
+    int ix=int(xx*(terminalNx-1)+0.5);
+    if(ix<0) ix=0;
+    if(ix>terminalNx-1) ix=terminalNx-1;
+    return terminalVals[ix];
+}
+
+
+macro LoadTerminal1D(FILE) {
+    {
+        ifstream ffLoad(FILE);
+        ffLoad >> terminalDim;
+        ffLoad >> terminalNx;
+        ffLoad >> terminalN;
+
+        if (terminalDim != 1 || terminalNx != nx+1 || terminalN != terminalNx) {
+            cout << "ERROR: terminal field shape = "
+                 << terminalNx << ", expected " << nx+1 << endl;
+            cout << "Rerun export_epinn_terminal_observations_to_freefem_v3.ipynb." << endl;
+            exit(1);
+        }
+
+        terminalVals.resize(terminalN);
+        for (int ffI=0; ffI<terminalN; ++ffI)
+            ffLoad >> terminalVals[ffI];
+    }
+} //
+
+
+
+macro SaveTest1D(U,OUTFILE) {
+    ifstream gridFile(TESTGRID);
+    int nTest;
+    gridFile >> nTest;
+    ofstream outFile(OUTFILE);
+    outFile << nTest << endl;
+    for (int q = 0; q < nTest; ++q) {
+        real xx;
+        gridFile >> xx;
+        outFile << xx << " " << U(xx) << endl;
+    }
+} //
+
+
+
+macro InitialErrorsDiscontinuous1D(U,E2,EINF) {
+    {
+        ifstream ffGrid(TESTGRID);
+        int ffN;
+        ffGrid >> ffN;
+
+        real ffNum=0.0, ffDen=0.0;
+        real ffMaxErr=0.0, ffMaxTrue=0.0;
+
+        for (int ffQ=0; ffQ<ffN; ++ffQ) {
+            real ffX;
+            ffGrid >> ffX;
+
+            real ffTrue=(ffX<=0.5 ? 1.0 : 0.8);
+            real ffErr=U(ffX)-ffTrue;
+
+            ffNum += ffErr*ffErr;
+            ffDen += ffTrue*ffTrue;
+
+            if (abs(ffErr)>ffMaxErr) ffMaxErr=abs(ffErr);
+            if (abs(ffTrue)>ffMaxTrue) ffMaxTrue=abs(ffTrue);
+        }
+
+        E2=sqrt(ffNum/(ffDen>1e-30 ? ffDen : 1e-30));
+        EINF=ffMaxErr/(ffMaxTrue>1e-30 ? ffMaxTrue : 1e-30);
+    }
+} //
+
+
+
+macro SensorErrors1D(U,NOISYFILE,CLEANFILE,ENA,ENI,ECA,ECI) {
+    {
+        real ffNumNA=0.0, ffDenNA=0.0, ffNumNI=0.0, ffDenNI=0.0;
+        real ffNumCA=0.0, ffDenCA=0.0, ffNumCI=0.0, ffDenCI=0.0;
+
+        {
+            ifstream ffNoisy(NOISYFILE);
+            int ffNObs;
+            ffNoisy >> ffNObs;
+
+            for (int ffI=0; ffI<ffNObs; ++ffI) {
+                real ffX, ffValue;
+                ffNoisy >> ffX >> ffValue;
+
+                real ffD=U(ffX)-ffValue;
+                ffNumNA += ffD*ffD;
+                ffDenNA += ffValue*ffValue;
+
+                if (ffX>1e-12 && ffX<1.0-1e-12) {
+                    ffNumNI += ffD*ffD;
+                    ffDenNI += ffValue*ffValue;
+                }
+            }
+        }
+
+        {
+            ifstream ffClean(CLEANFILE);
+            int ffNObs;
+            ffClean >> ffNObs;
+
+            for (int ffI=0; ffI<ffNObs; ++ffI) {
+                real ffX, ffValue;
+                ffClean >> ffX >> ffValue;
+
+                real ffD=U(ffX)-ffValue;
+                ffNumCA += ffD*ffD;
+                ffDenCA += ffValue*ffValue;
+
+                if (ffX>1e-12 && ffX<1.0-1e-12) {
+                    ffNumCI += ffD*ffD;
+                    ffDenCI += ffValue*ffValue;
+                }
+            }
+        }
+
+        ENA=sqrt(ffNumNA/(ffDenNA>1e-30 ? ffDenNA : 1e-30));
+        ENI=sqrt(ffNumNI/(ffDenNI>1e-30 ? ffDenNI : 1e-30));
+        ECA=sqrt(ffNumCA/(ffDenCA>1e-30 ? ffDenCA : 1e-30));
+        ECI=sqrt(ffNumCI/(ffDenCI>1e-30 ? ffDenCI : 1e-30));
+    }
+} //
+
+
+real gammaCurrent=1.0e-4;
+real sqrtGammaCurrent=sqrt(gammaCurrent);
+real gLeftQR=0.5;
+real gRightQR=0.5;
+
+// Scaled auxiliary variable:
+//     q = sqrt(gamma) * Delta(w).
+//
+// Then the QR system is mathematically equivalent to
+//     w_s + (a(w) w_x)_x + gamma*w_xxxx = 0,
+// but the two mixed blocks are much better balanced numerically:
+//
+//     w_s + (a(w) w_x)_x + sqrt(gamma)*q_xx = 0,
+//     q - sqrt(gamma)*w_xx = 0.
+//
+// Only w has the essential Dirichlet condition. q is left unconstrained.
+problem QR(<[w],[q]>,<[phi],[psi]>,solver=sparsesolver)
+    = int1d(Th)(
+          w*phi
+        - dt*acoefQR*dx(w)*dx(phi)
+        - dt*sqrtGammaCurrent*dx(q)*dx(phi)
+        + q*psi
+        + sqrtGammaCurrent*dx(w)*dx(psi)
+
+      )
+	  +int1d(Th)
+	  (
+	          - uoldQR*phi
+	  )
+    + on(1,w=gLeftQR)
+    + on(2,w=gRightQR);
+
+real gLeftF=1.0;
+real gRightF=0.8;
+
+problem Forward(unewF,phi,solver=sparsesolver)
+    = int1d(Th)(
+          unewF*phi
+        + dt*acoefF*dx(unewF)*dx(phi)
+
+      )
+	  +int1d(Th)(
+	          - uoldF*phi
+	  )
+    + on(1,unewF=gLeftF)
+    + on(2,unewF=gRightF);
+
+string summaryFileName=OBSROOT+"/qr_exp03_discontinuous_summary_v2.csv";
+ofstream summary(summaryFileName);
+summary<<"run_id,gamma,mesh_nx,dt,nsteps,stable,"
+       <<"inverse_seconds,forward_seconds,"
+       <<"data_discrepancy_noisy_all,data_discrepancy_noisy_interior,"
+       <<"sensor_clean_rel_l2_all,sensor_clean_rel_l2_interior,"
+       <<"initial_rel_l2_validation,initial_rel_linf_validation"<<endl;
+
+for(int ig=0;ig<3;++ig) {
+    gammaCurrent=gammas[ig];
+    sqrtGammaCurrent=sqrt(gammaCurrent);
+    string gammaTag=gammaTags[ig];
+
+    for(int irun=0;irun<2;++irun) {
+        string runID=runFolders[irun];
+        string runDir=OBSROOT+"/"+runID;
+
+        cout<<"Exp3: "<<runID
+            <<", gamma="<<gammaCurrent<<endl;
+
+        LoadTerminal1D(runDir+"/terminal_qr_mesh_values.txt");
+
+        uoldQR=terminalAt(x);
+
+        real t0=clock();
+        bool stable=true;
+        int failedStep=-1;
+
+        for(int step=1;step<=nSteps;++step) {
+            real sNew=step*dt;
+            real tPhys=T-sNew;
+
+            acoefQR=0.1*exp(-uoldQR-1.0);
+
+            gLeftQR=1.0-0.5*tPhys/T;
+            gRightQR=0.8-0.3*tPhys/T;
+
+            QR;
+
+            real wMin=w[].min;
+            real wMax=w[].max;
+
+            // The physical benchmark remains O(1). If a candidate gamma lets
+            // the reconstruction leave this broad safety interval, do not
+            // continue until exp(-w-1) overflows and makes UMFPACK singular.
+            if(wMin < -5.0 || wMax > 5.0) {
+                stable=false;
+                failedStep=step;
+                cout<<"QR DIVERGENCE: gamma="<<gammaCurrent
+                    <<", step="<<step
+                    <<", min(w)="<<wMin
+                    <<", max(w)="<<wMax<<endl;
+                break;
+            }
+
+            uoldQR=w;
+        }
+
+        real inverseSeconds=clock()-t0;
+
+        if(!stable) {
+            ofstream failedOut(
+                runDir+"/qr_gamma"+gammaTag+"_FAILED.txt"
+            );
+            failedOut<<"gamma "<<gammaCurrent<<endl;
+            failedOut<<"failed_step "<<failedStep<<endl;
+            failedOut<<"dt "<<dt<<endl;
+            failedOut<<"reason inverse_reconstruction_left_safety_interval"<<endl;
+
+            summary<<runID<<","<<gammaCurrent<<","
+                   <<nx<<","<<dt<<","<<nSteps<<",0,"
+                   <<inverseSeconds<<",0,"
+                   <<"nan,nan,nan,nan,nan,nan"<<endl;
+
+            cout<<"Skipping forward replay for unstable gamma."<<endl;
+            continue;
+        }
+
+        theta0rec=uoldQR;
+
+        SaveTest1D(
+            theta0rec,
+            runDir+"/qr_gamma"+gammaTag+"_theta0_test.txt"
+        );
+
+        real initErrL2=0.0, initErrLinf=0.0;
+        InitialErrorsDiscontinuous1D(theta0rec,initErrL2,initErrLinf);
+
+        uoldF=theta0rec;
+
+        real tf=clock();
+
+        for(int step=1;step<=nSteps;++step) {
+            real tPhys=step*dt;
+
+            acoefF=0.1*exp(-uoldF-1.0);
+
+            gLeftF=1.0-0.5*tPhys/T;
+            gRightF=0.8-0.3*tPhys/T;
+
+            Forward;
+            uoldF=unewF;
+
+            if(step==nSteps/4 ||
+               step==nSteps/2 ||
+               step==3*nSteps/4 ||
+               step==nSteps) {
+
+                ufwd=uoldF;
+                string snapFile;
+
+                if(step==nSteps/4)
+                    snapFile=runDir+"/qr_gamma"+gammaTag+"_forward_t025_test.txt";
+                if(step==nSteps/2)
+                    snapFile=runDir+"/qr_gamma"+gammaTag+"_forward_t050_test.txt";
+                if(step==3*nSteps/4)
+                    snapFile=runDir+"/qr_gamma"+gammaTag+"_forward_t075_test.txt";
+                if(step==nSteps)
+                    snapFile=runDir+"/qr_gamma"+gammaTag+"_forward_t100_test.txt";
+
+                SaveTest1D(ufwd,snapFile);
+            }
+        }
+
+        real forwardSeconds=clock()-tf;
+        ufwd=uoldF;
+
+        real sensorNoisyAll=0.0, sensorNoisyInterior=0.0;
+        real sensorCleanAll=0.0, sensorCleanInterior=0.0;
+        SensorErrors1D(
+            ufwd,
+            runDir+"/terminal_observations_noisy.txt",
+            runDir+"/terminal_observations_clean.txt",
+            sensorNoisyAll,
+            sensorNoisyInterior,
+            sensorCleanAll,
+            sensorCleanInterior
+        );
+
+        ofstream runtimeOut(
+            runDir+"/qr_gamma"+gammaTag+"_runtime.txt"
+        );
+        runtimeOut<<"gamma "<<gammaCurrent<<endl;
+        runtimeOut<<"mesh_nx "<<nx<<endl;
+        runtimeOut<<"dt "<<dt<<endl;
+        runtimeOut<<"nsteps "<<nSteps<<endl;
+        runtimeOut<<"stable 1"<<endl;
+        runtimeOut<<"inverse_seconds "<<inverseSeconds<<endl;
+        runtimeOut<<"forward_seconds "<<forwardSeconds<<endl;
+        runtimeOut<<"data_discrepancy_noisy_all "<<sensorNoisyAll<<endl;
+        runtimeOut<<"data_discrepancy_noisy_interior "<<sensorNoisyInterior<<endl;
+        runtimeOut<<"sensor_clean_rel_l2_all "<<sensorCleanAll<<endl;
+        runtimeOut<<"sensor_clean_rel_l2_interior "<<sensorCleanInterior<<endl;
+        runtimeOut<<"initial_rel_l2_validation "<<initErrL2<<endl;
+        runtimeOut<<"initial_rel_linf_validation "<<initErrLinf<<endl;
+
+        summary<<runID<<","<<gammaCurrent<<","
+               <<nx<<","<<dt<<","<<nSteps<<",1,"
+               <<inverseSeconds<<","<<forwardSeconds<<","
+               <<sensorNoisyAll<<","<<sensorNoisyInterior<<","
+               <<sensorCleanAll<<","<<sensorCleanInterior<<","
+               <<initErrL2<<","<<initErrLinf<<endl;
+    }
+}
+
+cout<<"Experiment 3 completed."<<endl;
+cout<<"Summary: "<<summaryFileName<<endl;

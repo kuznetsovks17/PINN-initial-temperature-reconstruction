@@ -1,0 +1,5 @@
+# Binary scientific arrays and figure artifacts are not text-diffable
+*.npz binary
+*.npy binary
+*.png binary
+*.pdf binary

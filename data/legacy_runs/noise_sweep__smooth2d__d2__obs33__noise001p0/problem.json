@@ -1,0 +1,28 @@
+{
+  "name": "smooth_exact_noise2d_d2",
+  "spatial_dim": 2,
+  "domain_min": [
+    0.0,
+    0.0
+  ],
+  "domain_max": [
+    1.0,
+    1.0
+  ],
+  "tmin": 0.0,
+  "tmax": 100.0,
+  "theta_prior_value": 0.0,
+  "interface_locations": [],
+  "chi": 0.0002,
+  "variant": "noise2d",
+  "tensorflow_version": "2.10.0",
+  "keras_version": "2.10.0",
+  "python_version": "3.8.19",
+  "architecture": {
+    "num_shared_layers": 3,
+    "shared_dim": 30,
+    "num_branch_layers": 1,
+    "branch_dim": 30,
+    "fourier_projection_dimension": 16
+  }
+}

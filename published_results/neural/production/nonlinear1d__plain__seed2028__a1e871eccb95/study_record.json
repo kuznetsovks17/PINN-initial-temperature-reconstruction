@@ -1,0 +1,19 @@
+{
+  "stage": "compact_paired_v1",
+  "case": "nonlinear1d",
+  "exposure": 0.1,
+  "obs_per_dim": 257,
+  "noise_level": 0.05,
+  "noise_seed": 3102,
+  "training_seed": 2028,
+  "method": "plain",
+  "repetition": 3,
+  "dataset_id": "nonlinear1d_n257_noise0.05_s3102_647db3773b",
+  "dataset_folder": "results/observations/nonlinear1d_n257_noise0.05_s3102_647db3773b",
+  "observation_sha256": "20b75ff1a71fac21e0f25e5c922117c2bf5e70235dda7ec272d38db1875ac8db",
+  "run_folder": "results/neural/production/nonlinear1d__plain__seed2028__a1e871eccb95",
+  "profile": "production",
+  "protocol": "matched-interior-v1-unit-time-residual",
+  "endpoint": "final_fixed_budget",
+  "publication_eligible": false
+}

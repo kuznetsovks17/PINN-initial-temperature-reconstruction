@@ -1,0 +1,19 @@
+{
+  "stage": "compact_paired_v1",
+  "case": "smooth2d",
+  "exposure": 0.02,
+  "obs_per_dim": 33,
+  "noise_level": 0.05,
+  "noise_seed": 3101,
+  "training_seed": 2027,
+  "method": "fourier_fixed",
+  "repetition": 2,
+  "dataset_id": "smooth2d_n33_noise0.05_s3101_165ecc07a1",
+  "dataset_folder": "results/observations/smooth2d_n33_noise0.05_s3101_165ecc07a1",
+  "observation_sha256": "3383e869d3da27e3fc506e5e7487ba8bbddae47531eb67d460d3dd87a67695d8",
+  "run_folder": "results/neural/production/smooth2d__fourier_fixed__seed2027__bb3a1d85a852",
+  "profile": "production",
+  "protocol": "matched-interior-v1-unit-time-residual",
+  "endpoint": "final_fixed_budget",
+  "publication_eligible": false
+}

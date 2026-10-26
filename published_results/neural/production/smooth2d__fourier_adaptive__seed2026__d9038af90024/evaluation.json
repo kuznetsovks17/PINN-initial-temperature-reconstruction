@@ -1,0 +1,14 @@
+{
+  "initial_relative_l2": 0.16056494591801412,
+  "network_terminal_relative_l2": 0.013202512312288157,
+  "network_observation_residual": 0.13997014664903243,
+  "independent_terminal_relative_l2": 0.019757858378053304,
+  "independent_observation_residual": 0.21332779600459534,
+  "network_vs_independent_terminal_relative_l2": 0.012333343211845213,
+  "initial_boundary_linf": 0.11393344402313232,
+  "forward_replay_spatial_points": [
+    101,
+    101
+  ],
+  "forward_replay_requires_refinement": true
+}

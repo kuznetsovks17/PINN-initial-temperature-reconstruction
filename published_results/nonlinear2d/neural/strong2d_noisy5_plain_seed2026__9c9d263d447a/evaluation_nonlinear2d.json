@@ -1,0 +1,15 @@
+{
+  "method": "plain",
+  "condition": "noisy5",
+  "training_seed": 2026,
+  "training_signature": "9c9d263d447a4682fa52141271257d857135432deacfc589ee820fd86f32818e",
+  "initial_relative_l2": 0.30880779032049266,
+  "initial_boundary_max_abs_correction": 0.02165643870830536,
+  "independent_terminal_relative_l2": 0.0279390839976689,
+  "independent_sensor_relative_discrepancy": 0.05512300526488533,
+  "replay_grid_nodes": 65,
+  "replay_dt": 0.01,
+  "reference_grid_nodes": 97,
+  "reference_dt": 0.005,
+  "status": "computed_from_saved_model_not_oracle_selected"
+}

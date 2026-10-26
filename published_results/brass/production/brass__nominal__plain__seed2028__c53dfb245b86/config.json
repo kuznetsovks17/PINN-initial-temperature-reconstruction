@@ -1,0 +1,180 @@
+{
+  "problem": {
+    "name": "brass",
+    "dim": 1,
+    "bounds": [
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "T": 1.0,
+    "Fo": 1.0,
+    "law": "brass",
+    "B0": 0.287265051903114,
+    "B1": 0.011656401384083,
+    "boundary_times": [
+      0.0,
+      0.2,
+      0.4,
+      0.6000000000000001,
+      0.8,
+      1.0
+    ],
+    "boundary_left": [
+      0.16784365263157916,
+      0.19949997894736832,
+      0.23561043684210528,
+      0.2755617368421051,
+      0.326274347368421,
+      0.3761393263157892
+    ],
+    "boundary_right": [
+      0.46350093684210497,
+      0.5605407263157896,
+      0.6557143526315791,
+      0.7357222526315791,
+      0.8186392894736843,
+      0.8953044315789473
+    ],
+    "physical_length_m": 0.034,
+    "physical_final_time_s": 9.0,
+    "temperature_offset_K": 520.0,
+    "temperature_scale_K": 190.0
+  },
+  "config": {
+    "profile": "production",
+    "method": "plain",
+    "training_seed": 2028,
+    "feature_seed": 1729,
+    "collocation_seed": 2718,
+    "hidden_width": 60,
+    "hidden_depth": 3,
+    "features_per_coordinate": 16,
+    "fourier_scale": 1.0,
+    "dtype": "float32",
+    "epochs": 60000,
+    "N_r": 12000,
+    "N_b": 200,
+    "batch_r": 12000,
+    "batch_b": 200,
+    "learning_rate": 0.0002,
+    "weight_learning_rate": 0.0005,
+    "beta_1": 0.99,
+    "eta_min": 0.01,
+    "eta_max": 100.0,
+    "residual_scale": 1.0,
+    "output_shift": "terminal_mean",
+    "history_every": 100,
+    "validate_every": 500,
+    "checkpoint_every": 1000,
+    "validation_r": 2048,
+    "validation_b": 512,
+    "print_every": 1000,
+    "eval_per_dim": 1001,
+    "prediction_batch": 8192,
+    "deterministic": true,
+    "resume": true,
+    "eval_times": [
+      0.0,
+      0.2,
+      0.4,
+      0.6000000000000001,
+      0.8,
+      1.0
+    ],
+    "run_id": "brass__nominal__plain__seed2028"
+  },
+  "output_shift": 0.5502621180921053,
+  "identity": {
+    "engine": "inverse-completion-1",
+    "source_sha256": "fc2c4d7f6619eeb56f253cb09a81c98a792f43b3b9d5bf7fe83f8f4d64bf91b0",
+    "problem": {
+      "name": "brass",
+      "dim": 1,
+      "bounds": [
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "T": 1.0,
+      "Fo": 1.0,
+      "law": "brass",
+      "B0": 0.287265051903114,
+      "B1": 0.011656401384083,
+      "boundary_times": [
+        0.0,
+        0.2,
+        0.4,
+        0.6000000000000001,
+        0.8,
+        1.0
+      ],
+      "boundary_left": [
+        0.16784365263157916,
+        0.19949997894736832,
+        0.23561043684210528,
+        0.2755617368421051,
+        0.326274347368421,
+        0.3761393263157892
+      ],
+      "boundary_right": [
+        0.46350093684210497,
+        0.5605407263157896,
+        0.6557143526315791,
+        0.7357222526315791,
+        0.8186392894736843,
+        0.8953044315789473
+      ],
+      "physical_length_m": 0.034,
+      "physical_final_time_s": 9.0,
+      "temperature_offset_K": 520.0,
+      "temperature_scale_K": 190.0
+    },
+    "config": {
+      "profile": "production",
+      "method": "plain",
+      "training_seed": 2028,
+      "feature_seed": 1729,
+      "collocation_seed": 2718,
+      "hidden_width": 60,
+      "hidden_depth": 3,
+      "features_per_coordinate": 16,
+      "fourier_scale": 1.0,
+      "dtype": "float32",
+      "epochs": 60000,
+      "N_r": 12000,
+      "N_b": 200,
+      "batch_r": 12000,
+      "batch_b": 200,
+      "learning_rate": 0.0002,
+      "weight_learning_rate": 0.0005,
+      "beta_1": 0.99,
+      "eta_min": 0.01,
+      "eta_max": 100.0,
+      "residual_scale": 1.0,
+      "output_shift": "terminal_mean",
+      "history_every": 100,
+      "validate_every": 500,
+      "checkpoint_every": 1000,
+      "validation_r": 2048,
+      "validation_b": 512,
+      "eval_per_dim": 1001,
+      "prediction_batch": 8192,
+      "deterministic": true,
+      "eval_times": [
+        0.0,
+        0.2,
+        0.4,
+        0.6000000000000001,
+        0.8,
+        1.0
+      ]
+    },
+    "X_obs_sha256": "98c5f30b3c9250af61fbea481137a9deb851729b68895b70cc265cebc8e9393e",
+    "y_obs_sha256": "36d6a8972c340efe96e96a1bf3ab6efaf2728086a167013002254d1e17efc4fa",
+    "X_eval_sha256": "873e049b430a53853d94a8f9e023e996fb47f4231b91429e0436b6d1f6c1a161"
+  },
+  "signature": "c53dfb245b86d45d226732d189ca9460a093d72c1e4ff3495c5fdc47340dd60c"
+}

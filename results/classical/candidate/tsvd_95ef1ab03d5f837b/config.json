@@ -1,0 +1,38 @@
+{
+  "problem": {
+    "name": "smooth2d",
+    "dim": 2,
+    "Fo": 0.0002,
+    "T": 100.0,
+    "law": "constant",
+    "a": 1.0,
+    "modes": [
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "amplitudes": [
+      1.0,
+      0.25
+    ],
+    "bounds": [
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "dataset_folder": "results/observations/smooth2d_n33_noise0.05_s3104_d5f32829fb",
+  "signature": "95ef1ab03d5f837b5f567cfe8f923f2271deb56b7075f6a62a107162670754c2",
+  "prior_order": 0,
+  "numerical_floor_source": "exact_matrix_roundoff_only"
+}

@@ -1,0 +1,8 @@
+{
+  "status": "passed; software/closure checks only",
+  "P1_Navier_discrete_mode_linf": 3.68594044175552e-14,
+  "archived_vs_navier_relative_difference": 0.16221667695801842,
+  "archived_forward_residual": 0.023183615168269944,
+  "navier_forward_residual": 0.003345248235345439,
+  "scope": "1D only, not archived 2D/3D validation"
+}

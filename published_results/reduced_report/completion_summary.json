@@ -1,0 +1,21 @@
+{
+  "design": "compact_paired_v1",
+  "synthetic_planned": 30,
+  "synthetic_completed": 30,
+  "synthetic_missing_or_resumable": 0,
+  "synthetic_blocked": 0,
+  "brass_planned": 9,
+  "brass_completed": 9,
+  "brass_missing_or_resumable": 0,
+  "brass_blocked": 0,
+  "retained_classical_unique_fits": 8,
+  "nonlinear_baseline_candidate_records": 4,
+  "independent_replay_refinement_records": 30,
+  "out_of_cohort_candidates_preserved": 4,
+  "replications_per_condition": 3,
+  "noisy_design": "Three joint noise/training pairs; combined variability, no variance-component separation.",
+  "brass_experimental_runs": 1,
+  "analysis_scope": "Individual outcomes and descriptive summaries; no crossed bootstrap, significance test, or precision claim.",
+  "optional_dimensions": "Four additional feasibility jobs excluded from the 39-job primary budget.",
+  "publication_eligible": false
+}

@@ -1,0 +1,28 @@
+# Python/Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+.env.*
+.DS_Store
+*Zone.Identifier*
+# New training outputs and long-running calculations (paper snapshots are under published_results/)
+results/neural/
+results/brass/production/
+results/brass/smoke/
+results/nonlinear2d/neural/
+results/nonlinear2d/figures/
+results/reduced_report/
+results/reduced_plan/
+results/reduced_validation/
+results/report/
+results/plans/
+results/legacy_inventory.csv
+results/environment.json
+results/baseline_diagnostics/
+results/classical/diagnostic/
+results/nonlinear2d/report/
+*.tmp
+generated_figures/

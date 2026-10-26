@@ -1,0 +1,19 @@
+{
+  "stage": "compact_paired_v1",
+  "case": "smooth2d",
+  "exposure": 0.02,
+  "obs_per_dim": 33,
+  "noise_level": 0.05,
+  "noise_seed": 3102,
+  "training_seed": 2028,
+  "method": "plain",
+  "repetition": 3,
+  "dataset_id": "smooth2d_n33_noise0.05_s3102_32f8979d8d",
+  "dataset_folder": "results/observations/smooth2d_n33_noise0.05_s3102_32f8979d8d",
+  "observation_sha256": "cf74615c63dac632ae99d3417416dae10ca887387cab8d270cc0becf7fff0680",
+  "run_folder": "results/neural/production/smooth2d__plain__seed2028__425b26d4354e",
+  "profile": "production",
+  "protocol": "matched-interior-v1-unit-time-residual",
+  "endpoint": "final_fixed_budget",
+  "publication_eligible": false
+}

@@ -1,0 +1,47 @@
+{
+  "problem": {
+    "name": "smooth2d",
+    "dim": 2,
+    "Fo": 0.0002,
+    "T": 100.0,
+    "law": "constant",
+    "a": 1.0,
+    "modes": [
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "amplitudes": [
+      1.0,
+      0.25
+    ],
+    "bounds": [
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "obs_per_dim": 33,
+  "n_interior": 961,
+  "noise_level": 0.05,
+  "noise_seed": 3104,
+  "noise_model": "iid_gaussian_interior",
+  "sigma": 0.017396108038545337,
+  "noise_norm": 0.5434584824297615,
+  "selection_noise_norm_source": "known realised synthetic noise norm",
+  "boundary_policy": "exact_known_Dirichlet_data_in_separate_boundary_loss",
+  "reference_sha256": "analytic-modal-truth",
+  "observation_sha256": "2f2f292c50d186ba0269d71c5e1b019bea81d3af1434b037ac08bc33244b39dc",
+  "protocol": "matched-interior-v1",
+  "dataset_id": "smooth2d_n33_noise0.05_s3104_d5f32829fb"
+}

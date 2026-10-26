@@ -1,0 +1,113 @@
+{
+  "problem": {
+    "name": "smooth2d",
+    "dim": 2,
+    "Fo": 0.0002,
+    "T": 100.0,
+    "law": "constant",
+    "a": 1.0,
+    "bounds": [
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "config": {
+    "profile": "production",
+    "method": "fourier_fixed",
+    "training_seed": 2027,
+    "feature_seed": 72027,
+    "collocation_seed": 82027,
+    "hidden_width": 30,
+    "hidden_depth": 4,
+    "features_per_coordinate": 16,
+    "fourier_scale": 1.0,
+    "dtype": "float32",
+    "epochs": 30000,
+    "N_r": 60000,
+    "N_b": 8000,
+    "batch_r": 8192,
+    "batch_b": 2048,
+    "learning_rate": 0.0002,
+    "weight_learning_rate": 0.0005,
+    "beta_1": 0.99,
+    "eta_min": 0.01,
+    "eta_max": 100.0,
+    "residual_scale": 100.0,
+    "output_shift": "terminal_mean",
+    "history_every": 100,
+    "validate_every": 500,
+    "checkpoint_every": 1000,
+    "validation_r": 2048,
+    "validation_b": 512,
+    "print_every": 1000,
+    "eval_per_dim": null,
+    "prediction_batch": 8192,
+    "deterministic": true,
+    "resume": true
+  },
+  "output_shift": 0.29052679346922744,
+  "identity": {
+    "engine": "inverse-completion-1",
+    "source_sha256": "fc2c4d7f6619eeb56f253cb09a81c98a792f43b3b9d5bf7fe83f8f4d64bf91b0",
+    "problem": {
+      "name": "smooth2d",
+      "dim": 2,
+      "Fo": 0.0002,
+      "T": 100.0,
+      "law": "constant",
+      "a": 1.0,
+      "bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "config": {
+      "profile": "production",
+      "method": "fourier_fixed",
+      "training_seed": 2027,
+      "feature_seed": 72027,
+      "collocation_seed": 82027,
+      "hidden_width": 30,
+      "hidden_depth": 4,
+      "features_per_coordinate": 16,
+      "fourier_scale": 1.0,
+      "dtype": "float32",
+      "epochs": 30000,
+      "N_r": 60000,
+      "N_b": 8000,
+      "batch_r": 8192,
+      "batch_b": 2048,
+      "learning_rate": 0.0002,
+      "weight_learning_rate": 0.0005,
+      "beta_1": 0.99,
+      "eta_min": 0.01,
+      "eta_max": 100.0,
+      "residual_scale": 100.0,
+      "output_shift": "terminal_mean",
+      "history_every": 100,
+      "validate_every": 500,
+      "checkpoint_every": 1000,
+      "validation_r": 2048,
+      "validation_b": 512,
+      "eval_per_dim": null,
+      "prediction_batch": 8192,
+      "deterministic": true
+    },
+    "X_obs_sha256": "9546e489064f7a4c871d901a1ea9ca9351db4a03fbc9709fb0a54f20efe8e74e",
+    "y_obs_sha256": "7ad5e7e7f3743199066ca4f11edb3068083fb96d839bfc29e71086070abbaccb",
+    "X_eval_sha256": "c7f5b735c2054eb1d176160fe60989928d440d27f907b3fdf5ef9f8ff7e350ff"
+  },
+  "signature": "7f489d3c76c75eaae0d64861e7d73805615dcd45943ccb8eff8e36f4d963a76d"
+}

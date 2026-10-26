@@ -1,0 +1,22 @@
+{
+  "case": "smooth2d",
+  "method": "tikhonov",
+  "profile": "candidate",
+  "dataset_id": "smooth2d_n33_noise0_s0_af2d1d20d5",
+  "noise_level": 0.0,
+  "noise_seed": 0,
+  "obs_per_dim": 33,
+  "exposure": 0.02,
+  "observation_sha256": "014df9ead3a3b7466eceb18eea3e861e529d3fe056f29a02bd33b0d6167e6391",
+  "kmax": 12,
+  "initial_relative_l2": 2.090666183262455e-10,
+  "independent_terminal_relative_l2": 2.0409480606403008e-14,
+  "independent_observation_residual": 2.196726534670306e-13,
+  "target_residual": 2.6343695407966376e-13,
+  "selection_status": "discrepancy_attained",
+  "selected_parameter": 9.86066524704642e-13,
+  "wall_seconds": 0.06135874197934754,
+  "numerical_rank": 108,
+  "publication_eligible": false,
+  "run_folder": "results/classical/candidate/tikhonov_dfdd1eeae0f75d4f"
+}

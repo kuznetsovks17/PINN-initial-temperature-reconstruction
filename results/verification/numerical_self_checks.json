@@ -1,0 +1,11 @@
+{
+  "clean_spectral_relative_error": 2.2988540478059422e-11,
+  "tikhonov_discrepancy_ratio": 0.949933513716842,
+  "tsvd_discrepancy_ratio": 0.9205809561745467,
+  "BDF_linear_limit_linf": 2.414037348452691e-05,
+  "FD_expm_discrete_mode_d1_linf": 3.3306690738754696e-16,
+  "FD_expm_discrete_mode_d2_linf": 3.3306690738754696e-16,
+  "FD_expm_discrete_mode_d3_linf": 2.220446049250313e-16,
+  "nonlinear_positivity_and_boundary": true,
+  "status": "passed; lightweight verification only"
+}

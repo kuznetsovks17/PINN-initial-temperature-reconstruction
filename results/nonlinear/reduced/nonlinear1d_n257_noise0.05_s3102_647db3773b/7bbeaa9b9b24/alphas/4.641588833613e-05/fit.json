@@ -1,0 +1,16 @@
+{
+  "signature": "5050d5004b0ded027a7e414b8da85ea872e0ba552762d1fd94340a5932c086d0",
+  "alpha": 4.641588833612772e-05,
+  "path": {
+    "parameter": 4.641588833612772e-05,
+    "residual_norm": 0.6458202024076845,
+    "penalty_norm": 4.85523024751621,
+    "optimizer_success": true,
+    "optimizer_status": 2,
+    "optimizer_message": "`ftol` termination condition is satisfied.",
+    "optimizer_nfev": 6,
+    "wall_seconds": 2.460914678988047
+  },
+  "target_residual": 0.7131906300022721,
+  "arrays_sha256": "3f3fdf4796ea088a55d7a87d0082dc1dab4f7880232911956ec52ed7d81e5ea0"
+}

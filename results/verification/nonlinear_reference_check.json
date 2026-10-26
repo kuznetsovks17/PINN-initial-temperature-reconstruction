@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "status": "empirical_reference_gate",
+  "meshes": [
+    401,
+    801,
+    1601
+  ],
+  "max_steps": [
+    0.01,
+    0.005,
+    0.0025
+  ],
+  "rtol": 1e-09,
+  "atol": 1e-11,
+  "relative_acceptance": 0.0001,
+  "sensor_difference_l2": 0.0012720565052442734,
+  "spatial_sensor_difference_l2": 0.0012720565052442734,
+  "time_step_sensor_difference_l2": 4.3017965440060324e-10,
+  "time_tolerance_sensor_difference_l2": 8.49862904752247e-12,
+  "convergence_scope": "terminal field at 255 interior observation locations",
+  "suggested_numerical_floor": 0.002544113010488547,
+  "caveat": "Empirical two-grid estimate, not a rigorous bound; rerun with finer grid for clean inverse claims.",
+  "problem_sha256": "4d4bddd8ccece39c85a24c54f74f2dea1a43d3e12280ebb5d8e09612c5d4c39f",
+  "forward_source_sha256": "638ec221aea83d40090d0a3d4bbbd6a70fa0d7eb0cd06af5f4ed6fb63f43047e",
+  "reference_sha256": "94042a59b17d24db9c16c4c38f04a0022cad77613ca42a7b9b955c182859a20a"
+}

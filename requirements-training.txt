@@ -1,0 +1,6 @@
+# Install after requirements.txt in the same environment.
+# The CPU TensorFlow 2.20.0 build was used for the delivered smoke checks.
+tensorflow==2.20.0
+# For an appropriate Linux/NVIDIA environment, the optional CUDA extra is:
+# tensorflow[and-cuda]==2.20.0
+# Follow https://www.tensorflow.org/install/pip for your platform.

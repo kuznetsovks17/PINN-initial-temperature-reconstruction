@@ -1,0 +1,16 @@
+{
+  "signature": "97c6aae8e32eb9d472c349236aef3974445986e83fe78d833686a830d66850a6",
+  "alpha": 0.004641588833612773,
+  "path": {
+    "parameter": 0.004641588833612773,
+    "residual_norm": 0.6598050435981249,
+    "penalty_norm": 1.7601955271246907,
+    "optimizer_success": true,
+    "optimizer_status": 3,
+    "optimizer_message": "`xtol` termination condition is satisfied.",
+    "optimizer_nfev": 7,
+    "wall_seconds": 2.108537721011089
+  },
+  "target_residual": 0.726206136499279,
+  "arrays_sha256": "e2ddf92873e7f17b27e6de4fb2d8154a9fb622885878df2159226646bc53cb2b"
+}

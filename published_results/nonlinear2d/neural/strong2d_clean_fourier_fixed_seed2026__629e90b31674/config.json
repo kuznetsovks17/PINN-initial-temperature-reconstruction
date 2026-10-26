@@ -1,0 +1,140 @@
+{
+  "problem": {
+    "name": "strong_nonlinear2d",
+    "dim": 2,
+    "law": "sigmoid20_2d",
+    "bounds": [
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "Fo": 0.002,
+    "T": 1.0,
+    "boundary_type": "dirichlet0",
+    "dirichlet_value": 0.0,
+    "a_lo": 1.0,
+    "a_hi": 20.0,
+    "beta": 12.0,
+    "theta_mid": 0.5,
+    "initial_profile": "two_interior_hotspots_v1",
+    "initial_normalization": 1.0475286126491916,
+    "source": 0.0
+  },
+  "config": {
+    "profile": "production",
+    "method": "fourier_fixed",
+    "training_seed": 2026,
+    "feature_seed": 1729,
+    "collocation_seed": 2718,
+    "hidden_width": 30,
+    "hidden_depth": 4,
+    "features_per_coordinate": 16,
+    "fourier_scale": 1.0,
+    "dtype": "float32",
+    "epochs": 30000,
+    "N_r": 60000,
+    "N_b": 8000,
+    "batch_r": 8192,
+    "batch_b": 2048,
+    "learning_rate": 0.0002,
+    "weight_learning_rate": 0.0005,
+    "beta_1": 0.99,
+    "eta_min": 0.01,
+    "eta_max": 100.0,
+    "residual_scale": 1.0,
+    "output_shift": "terminal_mean",
+    "history_every": 100,
+    "validate_every": 500,
+    "checkpoint_every": 1000,
+    "validation_r": 2048,
+    "validation_b": 512,
+    "print_every": 1000,
+    "eval_per_dim": 65,
+    "prediction_batch": 8192,
+    "deterministic": true,
+    "resume": true,
+    "run_id": "strong2d_clean_fourier_fixed_seed2026",
+    "eval_times": [
+      0.0,
+      0.5,
+      1.0
+    ]
+  },
+  "output_shift": 0.1401041057871887,
+  "identity": {
+    "engine": "strong-nonlinear-2d-1",
+    "source_sha256": "34940432566534b65736d3e212d6d0418db5c4fb1a25a01206652525d2a62547",
+    "problem": {
+      "name": "strong_nonlinear2d",
+      "dim": 2,
+      "law": "sigmoid20_2d",
+      "bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "Fo": 0.002,
+      "T": 1.0,
+      "boundary_type": "dirichlet0",
+      "dirichlet_value": 0.0,
+      "a_lo": 1.0,
+      "a_hi": 20.0,
+      "beta": 12.0,
+      "theta_mid": 0.5,
+      "initial_profile": "two_interior_hotspots_v1",
+      "initial_normalization": 1.0475286126491916,
+      "source": 0.0
+    },
+    "config": {
+      "profile": "production",
+      "method": "fourier_fixed",
+      "training_seed": 2026,
+      "feature_seed": 1729,
+      "collocation_seed": 2718,
+      "hidden_width": 30,
+      "hidden_depth": 4,
+      "features_per_coordinate": 16,
+      "fourier_scale": 1.0,
+      "dtype": "float32",
+      "epochs": 30000,
+      "N_r": 60000,
+      "N_b": 8000,
+      "batch_r": 8192,
+      "batch_b": 2048,
+      "learning_rate": 0.0002,
+      "weight_learning_rate": 0.0005,
+      "beta_1": 0.99,
+      "eta_min": 0.01,
+      "eta_max": 100.0,
+      "residual_scale": 1.0,
+      "output_shift": "terminal_mean",
+      "history_every": 100,
+      "validate_every": 500,
+      "checkpoint_every": 1000,
+      "validation_r": 2048,
+      "validation_b": 512,
+      "eval_per_dim": 65,
+      "prediction_batch": 8192,
+      "deterministic": true,
+      "eval_times": [
+        0.0,
+        0.5,
+        1.0
+      ]
+    },
+    "X_obs_sha256": "9546e489064f7a4c871d901a1ea9ca9351db4a03fbc9709fb0a54f20efe8e74e",
+    "y_obs_sha256": "42c2329b027f0c5266bbee74dd88c43f7aa6c80ba746fcd5052a515e32c2f8bb",
+    "X_eval_sha256": "7608b66c4ff4bdf0c4c995ba5c6d9ac60b276c4e4e38060af722a38170accf55"
+  },
+  "signature": "629e90b316745ca1ebaca7bf42dc8bce5574cd2e1bfd317b4c30af0142f6eb19"
+}

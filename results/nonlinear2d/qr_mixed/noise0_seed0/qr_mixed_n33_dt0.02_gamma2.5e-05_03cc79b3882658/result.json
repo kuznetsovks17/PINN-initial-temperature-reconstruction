@@ -1,0 +1,20 @@
+{
+  "status": "completed",
+  "gamma": 2.5e-05,
+  "n": 33,
+  "dt": 0.02,
+  "identifier": "03cc79b3882658",
+  "observation_sha256": "49bc0a43aa0fbc23d35e5915cdf119994a9c6c34bf65d803c8bccb18d6017bd9",
+  "boundary_closure": "essential w=0, unconstrained q (natural normal derivative closure)",
+  "scheme": "lagged-coefficient backward Euler mixed P1, consistent mass",
+  "terminal_initialization": "direct nodal sensor values; zero Dirichlet boundary",
+  "max_temperature": 1.523457286171834,
+  "min_temperature": -2.7570401054981758e-05,
+  "inverse_wall_seconds": 0.3398915590000797,
+  "max_weak1_residual": 2.6515444622416317e-17,
+  "max_weak2_residual": 3.7677565301480375e-17,
+  "sensor_discrepancy_absolute": 0.5192102126243204,
+  "sensor_discrepancy_relative": 0.09175460058653856,
+  "replay_n": 33,
+  "replay_dt": 0.02
+}

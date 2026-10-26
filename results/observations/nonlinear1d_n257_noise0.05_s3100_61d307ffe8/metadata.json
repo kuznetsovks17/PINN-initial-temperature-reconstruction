@@ -1,0 +1,31 @@
+{
+  "problem": {
+    "name": "nonlinear1d",
+    "dim": 1,
+    "Fo": 0.1,
+    "T": 1.0,
+    "law": "exp_minus_theta_minus_one",
+    "initial_left": 1.0,
+    "initial_right": 0.8,
+    "jump_x": 0.5,
+    "bounds": [
+      [
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "obs_per_dim": 257,
+  "n_interior": 255,
+  "noise_level": 0.05,
+  "noise_seed": 3100,
+  "noise_model": "iid_gaussian_interior",
+  "sigma": 0.04148086679061898,
+  "noise_norm": 0.6601873968175264,
+  "selection_noise_norm_source": "known realised synthetic noise norm",
+  "boundary_policy": "exact_known_Dirichlet_data_in_separate_boundary_loss",
+  "reference_sha256": "38b81760f59bf6d6eca532318805833d1c45bb215050c0d2f5b282afe282290a",
+  "observation_sha256": "2ef192663f1378de4626a69eb9215b028da2b116ee2e2c21cb2f56ce6545dbfc",
+  "protocol": "matched-interior-v1",
+  "dataset_id": "nonlinear1d_n257_noise0.05_s3100_61d307ffe8"
+}

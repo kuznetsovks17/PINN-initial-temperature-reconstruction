@@ -1,0 +1,15 @@
+{
+  "method": "fourier_adaptive",
+  "condition": "clean",
+  "training_seed": 2026,
+  "training_signature": "88ff57aefae64e12d34d6308745b903e2cb4a640fce6a4f81cca8ca42af24cf9",
+  "initial_relative_l2": 0.28105016994863485,
+  "initial_boundary_max_abs_correction": 0.008491799235343933,
+  "independent_terminal_relative_l2": 0.024489548926213574,
+  "independent_sensor_relative_discrepancy": 0.024657032594757794,
+  "replay_grid_nodes": 65,
+  "replay_dt": 0.01,
+  "reference_grid_nodes": 97,
+  "reference_dt": 0.005,
+  "status": "computed_from_saved_model_not_oracle_selected"
+}

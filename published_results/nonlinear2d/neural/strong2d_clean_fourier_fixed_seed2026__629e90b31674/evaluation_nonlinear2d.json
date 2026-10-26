@@ -1,0 +1,15 @@
+{
+  "method": "fourier_fixed",
+  "condition": "clean",
+  "training_seed": 2026,
+  "training_signature": "629e90b316745ca1ebaca7bf42dc8bce5574cd2e1bfd317b4c30af0142f6eb19",
+  "initial_relative_l2": 0.2108726799703646,
+  "initial_boundary_max_abs_correction": 0.004730939865112305,
+  "independent_terminal_relative_l2": 0.006057443654074325,
+  "independent_sensor_relative_discrepancy": 0.006021987321694884,
+  "replay_grid_nodes": 65,
+  "replay_dt": 0.01,
+  "reference_grid_nodes": 97,
+  "reference_dt": 0.005,
+  "status": "computed_from_saved_model_not_oracle_selected"
+}

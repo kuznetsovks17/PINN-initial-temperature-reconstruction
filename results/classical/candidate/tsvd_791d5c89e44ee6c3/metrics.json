@@ -1,0 +1,22 @@
+{
+  "case": "smooth2d",
+  "method": "tsvd",
+  "profile": "candidate",
+  "dataset_id": "smooth2d_n33_noise0_s0_af2d1d20d5",
+  "noise_level": 0.0,
+  "noise_seed": 0,
+  "obs_per_dim": 33,
+  "exposure": 0.02,
+  "observation_sha256": "014df9ead3a3b7466eceb18eea3e861e529d3fe056f29a02bd33b0d6167e6391",
+  "kmax": 12,
+  "initial_relative_l2": 7.318726329122431e-14,
+  "independent_terminal_relative_l2": 8.600469064925777e-15,
+  "independent_observation_residual": 9.276091923772732e-14,
+  "target_residual": 2.6343695407966376e-13,
+  "selection_status": "discrepancy_attained",
+  "selected_parameter": 7,
+  "wall_seconds": 0.06911893599317409,
+  "numerical_rank": 108,
+  "publication_eligible": false,
+  "run_folder": "results/classical/candidate/tsvd_791d5c89e44ee6c3"
+}

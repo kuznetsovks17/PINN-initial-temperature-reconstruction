@@ -1,0 +1,6 @@
+{
+  "signature": "26482f3b6582a93ca82225d4accd4db2d6a6042b731a6e4ee8db7957d7aa953a",
+  "numerical_floor": 0.017658421648051505,
+  "coarse_reference_sensor_difference": 0.008829210824025753,
+  "scope": "synthetic forward discretization calibration before inverse fitting"
+}

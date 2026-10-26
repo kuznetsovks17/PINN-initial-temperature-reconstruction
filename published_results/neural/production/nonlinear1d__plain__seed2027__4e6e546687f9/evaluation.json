@@ -1,0 +1,17 @@
+{
+  "initial_relative_l2": 0.03972989666229987,
+  "rmse_over_true_jump": 0.17990940469994776,
+  "plateau_left": 0.9913050532341003,
+  "plateau_right": 0.7895095348358154,
+  "jump_height": 0.2017955183982849,
+  "jump_height_relative_error": 0.008977591991424505,
+  "jump_location": 0.49227572626841243,
+  "jump_location_absolute_error": 0.007724273731587572,
+  "transition_width_10_90": 0.24900568948602064,
+  "overshoot_over_jump": 0.08652329444885254,
+  "undershoot_over_jump": 0.12865155935287476,
+  "independent_observation_residual": 0.6225836681057709,
+  "initial_boundary_linf": 0.05665069818496704,
+  "forward_replay_nx": 801,
+  "forward_replay_requires_refinement": true
+}

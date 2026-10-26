@@ -1,0 +1,7 @@
+time_s,T_left_K,T_right_K,interpolation,role
+0.000,551.890294,608.065178,piecewise linear between published time nodes,TRAINING: known Dirichlet boundary data
+1.800,557.904996,626.502738,piecewise linear between published time nodes,TRAINING: known Dirichlet boundary data
+3.600,564.765983,644.585727,piecewise linear between published time nodes,TRAINING: known Dirichlet boundary data
+5.400,572.356730,659.787228,piecewise linear between published time nodes,TRAINING: known Dirichlet boundary data
+7.200,581.992126,675.541465,piecewise linear between published time nodes,TRAINING: known Dirichlet boundary data
+9.000,591.466472,690.107842,piecewise linear between published time nodes,TRAINING: known Dirichlet boundary data
